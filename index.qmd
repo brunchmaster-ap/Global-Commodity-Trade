@@ -1,0 +1,14 @@
+---
+title: "Home"
+---
+
+### Question
+
+
+> Did the 2008 global financial crisis cause a long-term shift in U.S. live animal import behavior?
+
+###
+
+The Global Commodity Trade Statistics dataset was filtered to examine U.S. live animal imports from 2000 to 2016. After cleaning and isolating relevant records, we created indicators for post-2008 periods and grouped commodities to track trade behavior before and after the financial crisis.
+
+Preliminary results show notable shifts in import volumes and values following 2008, suggesting that the global financial crisis may have had a lasting effect on U.S. demand for live animals. This project explores whether these patterns reflect a temporary shock or a structural change in trade behavior.

@@ -1,0 +1,8 @@
+---
+title: "Sources"
+format: html
+---
+
+- Global Trade Dataset: [https://www.kaggle.com/datasets/unitednations/global-commodity-trade-statistics/data]
+
+- ChatGPT

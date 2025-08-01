@@ -1,0 +1,139 @@
+---
+title: "Models"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+jupyter: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| cache: true
+```
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(primer.data)
+gct <- read_csv("commodity_trade_statistics_data.csv")
+```
+
+
+###  LaTeX Equations
+
+
+$$
+\begin{aligned}
+\text{TradeUSD}_i =\ & \beta_0 + \beta_1 \cdot \text{Post2008}_i + \beta_2 \cdot \text{Year}_i \\
+&+ \beta_3 \cdot (\text{Post2008}_i \times \text{Year}_i) + \varepsilon_i
+\end{aligned}
+$$
+
+This model estimates the raw dollar value of trade (TradeUSD) for each observation i, and how it is influenced by time and the 2008 crisis.
+
+β₀ — Intercept: baseline level of trade in the year 2000 (your centered year = 0)
+
+Post2008ᵢ — Dummy variable (1 if year ≥ 2009, 0 otherwise)
+
+Yearᵢ — The number of years since 2000 (e.g., 2002 = 2)
+
+Post2008ᵢ × Yearᵢ — Interaction term, captures how the trend changes after the crisis
+
+εᵢ — Error term (everything not captured by the model)
+
+Purpose: Shows whether there was a shift in the level and trend of imports after 2008, even without controlling for different types of commodities.
+
+#
+
+$$
+\begin{aligned}
+\log(\text{TradeUSD}_i) =\ & \beta_0 + \beta_1 \cdot \text{Post2008}_i + \beta_2 \cdot \text{Year}_i \\
+&+ \beta_3 \cdot (\text{Post2008}_i \times \text{Year}_i) \\
+&+ \sum_{c} \gamma_c \cdot \text{Commodity}_{ic} + \varepsilon_i
+\end{aligned}
+$$
+
+This is a more refined model that applies a log transformation and controls for specific commodities.
+
+log(TradeUSDᵢ) — Now modeling the percentage change in trade, not absolute dollars (helps with skewed data)
+
+∑ γ_c · Commodity_ic — Adds dummy variables for each commodity type, like cattle, sheep, poultry, etc. This controls for differences in trade patterns by animal type
+
+All other terms are the same as above.
+
+Purpose: This version is more robust. It accounts for the fact that not all live animals are traded equally and helps identify true shifts in import behavior after 2008 across different commodities.
+
+###
+
+```{r}
+library(knitr)
+library(kableExtra)
+
+live_animals <- gct %>%
+  filter(
+    country_or_area == "USA",
+    flow == "Import",
+    str_detect(tolower(commodity), "live"),
+    year >= 2000, year <= 2016
+  ) %>%
+  drop_na(trade_usd) %>%
+  mutate(
+    post_2008 = year >= 2009,
+    year_group = case_when(
+      year < 2009 ~ "Pre-2008",
+      TRUE ~ "Post-2008"
+    )
+  )
+```
+
+
+### Tables
+
+
+```{r}
+preceptor_table <- live_animals %>%
+  filter(year < 2009) %>%
+  group_by(commodity) %>%
+  summarise(
+    Years = paste0(min(year), "–", max(year)),
+    Observations = n(),
+    Mean_Trade_USD = round(mean(trade_usd, na.rm = TRUE), 0),
+    SD_Trade_USD = round(sd(trade_usd, na.rm = TRUE), 0)
+  ) %>%
+  arrange(desc(Mean_Trade_USD)) %>%
+  head(10)
+
+kable(preceptor_table, caption = "Top 10 U.S. Live Animal Imports Before 2008",
+      col.names = c("Commodity", "Years", "Obs.", "Mean Trade (USD)", "SD")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE, position = "center")
+
+```
+
+The Preceptor Table summarizes U.S. live animal import behavior before the 2008 global financial crisis. This pre-crisis snapshot identifies the most traded commodities by value and provides context for changes in volume and variability over time.
+
+#
+
+```{r}
+population_table <- live_animals %>%
+  group_by(year_group) %>%
+  summarise(
+    Years = paste0(min(year), "–", max(year)),
+    Observations = n(),
+    Unique_Commodities = n_distinct(commodity),
+    Total_Trade_USD = round(sum(trade_usd, na.rm = TRUE), 0),
+    Mean_Trade_USD = round(mean(trade_usd, na.rm = TRUE), 0)
+  )
+
+kable(population_table, caption = "Summary of U.S. Live Animal Imports (2000–2016)",
+      col.names = c("Period", "Years", "Obs.", "Unique Commodities", "Total Trade (USD)", "Avg. Trade (USD)")) %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE, position = "center")
+
+```
+
+The Population Table offers a side-by-side summary of U.S. live animal imports before and after the 2008 crisis, capturing shifts in volume, commodity diversity, and economic scale. It’s designed to identify long-term trends possibly triggered by the financial shock.
+
+###

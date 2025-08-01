@@ -1,0 +1,12 @@
+---
+title: "About"
+---
+My name is Ansh Patel, a rising freshman in Illinois, and these are my connections:
+ 
+ **Email:** anshbrunch@gmail.com
+
+ **GitHub:** https://github.com/brunchmaster-ap
+
+My project is about Global Trade Commodity and how The 2008 crisis affected importation of live animals.
+
+This project was created as a part of [Kane's Free Data Science Bootcamp](https://bootcamp.davidkane.info/)
