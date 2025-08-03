@@ -2,6 +2,9 @@
 title: "Home"
 ---
 
+The 2008 financial crisis triggered a global recession, disrupting trade and reducing demand across sectors. Its impact on U.S. live animal imports may reveal how major economic shocks can cause lasting changes in trade behavior.
+
+
 ### Question
 
 
@@ -9,6 +12,8 @@ title: "Home"
 
 ###
 
-The Global Commodity Trade Statistics dataset was filtered to examine U.S. live animal imports from 2000 to 2016. After cleaning and isolating relevant records, we created indicators for post-2008 periods and grouped commodities to track trade behavior before and after the financial crisis.
+Understanding this shift can reveal how economic shocks reshape trade in essential goods and help policymakers, economists, and industry stakeholders anticipate and adapt to future disruptions.
 
-Preliminary results show notable shifts in import volumes and values following 2008, suggesting that the global financial crisis may have had a lasting effect on U.S. demand for live animals. This project explores whether these patterns reflect a temporary shock or a structural change in trade behavior.
+We analyzed U.S. live animal imports from 2000 to 2016 using the Global Commodity Trade Statistics dataset. Post-2008 trends show shifts in import volume and value, suggesting the crisis may have triggered lasting changes in trade behavior.
+
+
