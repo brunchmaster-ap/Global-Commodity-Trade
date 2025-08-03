@@ -1,0 +1,284 @@
+---
+title: "Plots"
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+jupyter: false
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+This report presents a visual analysis of global commodity trade, focusing on how trade value (trade_usd) changes over time and varies across countries and commodities. By using clear and informative plots, the goal is to uncover patterns and trends that may not be immediately apparent from raw data alone. The visualizations aim to provide insight into the structure and dynamics of international trade over the observed period.
+
+
+#
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(primer.data)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(gt)
+library(stringr)
+library(fixest)
+
+gct <- read_csv("commodity_trade_statistics_data.csv")
+```
+
+
+### Plot 1 : Animated Line Plot
+
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(readr)
+
+# Read data
+gct <- read_csv("commodity_trade_statistics_data.csv")
+
+# Hex color palette for plotly
+animal_colors <- c(
+  "Bovine" = "#6d624a",   # rgb(109, 98, 74)
+  "Swine" = "#cac4a0",    # rgb(202, 196, 160)
+  "Poultry" = "#c8c8c8"   # rgb(200, 200, 200)
+)
+
+# Prepare data
+df_animals <- gct %>%
+  filter(
+    country_or_area == "USA",
+    flow == "Import",
+    category == "01_live_animals"
+  ) %>%
+  group_by(year, commodity) %>%
+  summarise(value = sum(trade_usd, na.rm = TRUE), .groups = "drop") %>%
+  mutate(animal_group = case_when(
+    str_detect(tolower(commodity), "bovine|cattle|cow") ~ "Bovine",
+    str_detect(tolower(commodity), "swine|pig|hog") ~ "Swine",
+    str_detect(tolower(commodity), "poultry|chicken|bird") ~ "Poultry",
+    TRUE ~ "Other"
+  )) %>%
+  filter(animal_group != "Other")
+
+# Base ggplot without lines, just dots + vertical line at 2008
+p <- ggplot(df_animals, aes(x = year, y = value, color = animal_group)) +
+  geom_point(size = 3, alpha = 0.8) +
+  geom_vline(xintercept = 2008, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 2008, y = max(df_animals$value)*0.95, label = "2008 Crisis", color = "red", angle = 90, vjust = -0.5, size = 4) +
+  scale_color_manual(values = animal_colors) +
+  labs(
+    title = "USA Live Animal Imports by Animal Group",
+    x = "Year",
+    y = "Trade Value (USD)",
+    color = "Animal Group"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18),
+    legend.position = "bottom"
+  ) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  scale_y_continuous(labels = scales::comma_format(), breaks = scales::pretty_breaks(n = 8))
+
+# Convert to interactive plotly
+ggplotly(p) %>%
+  layout(
+    xaxis = list(title = "Year", tickangle = 45),
+    yaxis = list(title = "Trade Value (USD)")
+  )
+```
+
+This scatterplot shows that when the 2008 crisis struck, the trade value went doen for all live animals, but leveled out in the end. We see that bovine is pretty scattered, so you cannot really see a relation. But for swine, the trade value went down, but didn't rise up again. Poultry however, syays about the same, as it is hidden behind the lower level of swine. 
+
+
+###
+
+Let's see what else was impacted by the 2008 financial crisis
+
+### Plot 2 : Interactive Heatmap
+
+```{r}
+library(tidyverse)
+library(plotly)
+library(readr)
+
+# Read data
+gct <- read_csv("commodity_trade_statistics_data.csv")
+
+# Filter relevant data
+df_trade <- gct %>%
+  filter(
+    country_or_area == "USA",
+    flow %in% c("Import", "Export"),
+    category %in% c("01_live_animals", "02_meat_and_edible_offal", "03_fish_and_seafood"),
+    year >= 2000, year <= 2016
+  ) %>%
+  group_by(year, flow, category) %>%
+  summarise(total_trade = sum(trade_usd, na.rm = TRUE), .groups = "drop") %>%
+  mutate(
+    category = case_when(
+      category == "01_live_animals" ~ "Live Animals",
+      category == "02_meat_and_edible_offal" ~ "Meat & Edible Offal",
+      category == "03_fish_and_seafood" ~ "Fish & Seafood",
+      TRUE ~ category
+    )
+  )
+
+# Define colors for each flow-category combination
+colors <- c(
+  "Import_Live Animals" = "#6d624a",
+  "Export_Live Animals" = "#a28e6d",
+  "Import_Meat & Edible Offal" = "#cac4a0",
+  "Export_Meat & Edible Offal" = "#e0dbbe",
+  "Import_Fish & Seafood" = "#c8c8c8",
+  "Export_Fish & Seafood" = "#e0e0e0"
+)
+
+df_trade <- df_trade %>%
+  mutate(flow_category = paste(flow, category, sep = "_"))
+
+# Plot
+p <- ggplot(df_trade, aes(x = year, y = total_trade, color = flow_category)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  scale_color_manual(values = colors) +
+  geom_vline(xintercept = 2008, linetype = "dashed", color = "red", size = 1) +
+  annotate("text", x = 2008, y = max(df_trade$total_trade) * 0.95, label = "2008 Crisis", color = "red", angle = 90, vjust = -0.5, size = 4) +
+  scale_y_continuous(labels = scales::comma_format()) +
+  scale_x_continuous(breaks = scales::pretty_breaks(n = 10)) +
+  labs(
+    title = "USA Trade in Key Food Categories (2000-2016)",
+    x = "Year",
+    y = "Trade Value (USD)",
+    color = "Flow & Category"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18),
+    legend.position = "bottom"
+  )
+
+ggplotly(p) %>%
+  layout(
+    xaxis = list(title = "Year", tickangle = 45),
+    yaxis = list(title = "Trade Value (USD)")
+  )
+```
+
+For this plot of US trade in food categories, we can see that the trade value of importing live animals goes down by a very large amount after the 2008 crisis, but it starts to rise after that. Exporting, unlike importing, goes down by very little, then rises to its peak in 2012, then goes back down over the next few years.
+
+
+###
+
+
+### Plot 3 : 3D Bar Plot
+
+```{r}
+library(dplyr)
+library(plotly)
+
+# Filter & summarize data
+df_p3 <- gct %>%
+  filter(category == "27_mineral_fuels_oils_distillation_products_etc",
+         flow == "Import",
+         year >= 2000, year <= 2016) %>%
+  mutate(period = ifelse(year <= 2008, "Pre-2008", "Post-2008")) %>%
+  group_by(country_or_area, period) %>%
+  summarize(total_trade = sum(trade_usd, na.rm = TRUE), .groups = "drop")
+
+# Pick top 5 countries by total trade (summed over both periods)
+top_countries <- df_p3 %>%
+  group_by(country_or_area) %>%
+  summarize(overall_trade = sum(total_trade), .groups = "drop") %>%
+  arrange(desc(overall_trade)) %>%
+  slice_head(n = 5) %>%
+  pull(country_or_area)
+
+df_p3 <- df_p3 %>% filter(country_or_area %in% top_countries)
+
+make_bar_mesh <- function(x_center, y_center, height, width=0.4, depth=0.4, color) {
+  x <- c(x_center - width/2, x_center + width/2, x_center + width/2, x_center - width/2,
+         x_center - width/2, x_center + width/2, x_center + width/2, x_center - width/2)
+  y <- c(y_center - depth/2, y_center - depth/2, y_center + depth/2, y_center + depth/2,
+         y_center - depth/2, y_center - depth/2, y_center + depth/2, y_center + depth/2)
+  z <- c(0, 0, 0, 0, height, height, height, height)
+  
+  i <- c(0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5)
+  j <- c(1, 2, 3, 2, 3, 3, 4, 4, 5, 5, 6, 6)
+  k <- c(2, 3, 4, 3, 4, 4, 5, 5, 6, 6, 7, 7)
+  
+  list(x = x, y = y, z = z, i = i, j = j, k = k, color = color)
+}
+
+# Map periods to numeric x axis
+period_map <- c("Pre-2008" = 1, "Post-2008" = 2)
+df_p3 <- df_p3 %>%
+  mutate(x_num = period_map[period],
+         y_num = as.numeric(factor(country_or_area, levels = top_countries)),
+         trade_billion = total_trade / 1e9)
+
+# Color scheme
+colors <- c("Pre-2008" = "rgb(202, 196, 160)",  # beige
+            "Post-2008" = "rgb(109, 98, 74)")   # dark brown
+
+# Create bar meshes
+bars <- lapply(1:nrow(df_p3), function(i) {
+  row <- df_p3[i,]
+  make_bar_mesh(x_center = row$x_num,
+                y_center = row$y_num,
+                height = row$trade_billion,
+                width = 0.35,
+                depth = 0.35,
+                color = colors[row$period])
+})
+
+# Initialize plot
+fig <- plot_ly()
+
+# Add bar traces
+for (bar in bars) {
+  fig <- fig %>%
+    add_trace(type = 'mesh3d',
+              x = bar$x, y = bar$y, z = bar$z,
+              i = bar$i, j = bar$j, k = bar$k,
+              facecolor = rep(bar$color, length(bar$i)),
+              opacity = 0.9,
+              showscale = FALSE)
+}
+
+# Black separator at x = 1.5 for 2008 crisis
+fig <- fig %>%
+  add_trace(type = 'mesh3d',
+            x = c(1.5, 1.5, 1.5, 1.5),
+            y = c(0.5, max(df_p3$y_num) + 0.5, max(df_p3$y_num) + 0.5, 0.5),
+            z = c(0, 0, max(df_p3$trade_billion) * 1.1, max(df_p3$trade_billion) * 1.1),
+            i = c(0),
+            j = c(1),
+            k = c(2),
+            facecolor = rep("rgba(0,0,0,0.3)", 1),
+            showscale = FALSE,
+            name = "2008 Crisis Marker")
+
+# Layout
+fig <- fig %>%
+  layout(scene = list(
+    xaxis = list(title = "Period", tickvals = c(1, 2), ticktext = c("Pre-2008", "Post-2008")),
+    yaxis = list(title = "Country", tickvals = 1:5, ticktext = top_countries),
+    zaxis = list(title = "Trade (Billion USD)"),
+    camera = list(eye = list(x = 1.8, y = 1.8, z = 1.2))
+  ),
+  title = "3D Bar Chart: U.S. Mineral Fuels & Oils Imports Before and After 2008 Crisis")
+
+fig
+
+```
+
+In this 3D bar plot, we can directly see trade value of minerals pre and post the 2008 crisis. We can see that the 2008 crisis left India with about double the amount of money, while Germany with the least change, now have had less money made from fuels an oils than other countries. China has the greatest percent change, with it almost tripling in money from trading. China overtook Japan after the crisis, but Japan still rose. The European Union, is still the highest before and after the crisis, rising to a whopping 3.5 trillion.
+
+
+###

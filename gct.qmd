@@ -19,6 +19,13 @@ execute:
 library(tidyverse)
 library(tidymodels)
 library(primer.data)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(gt)
+library(stringr)
+library(fixest)
+
 gct <- read_csv("commodity_trade_statistics_data.csv")
 ```
 
@@ -70,9 +77,6 @@ Purpose: This version is more robust. It accounts for the fact that not all live
 ###
 
 ```{r}
-library(knitr)
-library(kableExtra)
-
 live_animals <- gct %>%
   filter(
     country_or_area == "USA",
@@ -135,5 +139,20 @@ kable(population_table, caption = "Summary of U.S. Live Animal Imports (2000–2
 ```
 
 The Population Table offers a side-by-side summary of U.S. live animal imports before and after the 2008 crisis, capturing shifts in volume, commodity diversity, and economic scale. It’s designed to identify long-term trends possibly triggered by the financial shock.
+
+###
+
+
+
+### Linear Regression Model
+
+
+```{r}
+model <- feols(trade_usd ~ year | country_or_area + commodity, data = gct)
+
+summary(model)
+```
+
+Trade value (trade_usd) is regressed on year, controlling for country_or_area and commodity fixed effects. The year coefficient shows the average yearly change in trade value, holding country and commodity constant.
 
 ###
