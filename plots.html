@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Plots – Global Commodity Trade Statistics</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-e5dc1dc818bd1b164fbc9c0669298dd5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="site_libs/plotly-binding-4.11.0/plotly.js"></script>
+
+<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-4e94-61f7-9546-49c3539bd90c/raw?se=2025-08-02T19%3A15%3A32Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;scid=076bc206-6b8b-5dbf-8d0e-586de2cd740c&amp;skoid=a3412ad4-1a13-47ce-91a5-c07730964f35&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2025-08-01T20%3A15%3A04Z&amp;ske=2025-08-02T20%3A15%3A04Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=IduVxZo7Sd7CD/KjPCA4B9FTi5%2BRmzZABSKbD8ICxho%3D" alt="" class="navbar-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Global Commodity Trade Statistics</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gct.html"> 
+<span class="menu-text">Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./plots.html" aria-current="page"> 
+<span class="menu-text">Plots</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./sources.html"> 
+<span class="menu-text">Sources</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Plots</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This report presents a visual analysis of global commodity trade, focusing on how trade value (trade_usd) changes over time and varies across countries and commodities. By using clear and informative plots, the goal is to uncover patterns and trends that may not be immediately apparent from raw data alone. The visualizations aim to provide insight into the structure and dynamics of international trade over the observed period.</p>
+<section id="section" class="level1">
+<h1></h1>
+<section id="plot-1-animated-line-plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot-1-animated-line-plot">Plot 1 : Animated Line Plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-e147aee90938bd4418fd" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-e147aee90938bd4418fd">{"x":{"data":[{"x":[1991,1991,1992,1992,1993,1993,1994,1994,1995,1995,1996,1996,1997,1997,1998,1998,1999,1999,2000,2000,2001,2001,2002,2002,2003,2003,2004,2004,2005,2005,2006,2007,2007,2008,2008,2009,2009,2010,2010,2011,2011,2012,2012,2013,2013,2014,2014,2015,2015,2016,2016],"y":[2793314,962014466,3015705,1255189729,1811170,1356525894,1529956,1170619985,1149456,1437217920,1195446,1139848024,1036057,1141137552,3311331,1159558330,6628683,1015175846,6334868,1166046920,9270247,1472936283,7887136,1455226879,4695717,869436476,120374,546191445,18080,1048902020,1570060114,2481294,1907664140,26145722,1775116794,4035931,1328876075,4831908,1608425642,5138440,1481746412,2958406,1809310758,5266625,1814564550,9975519,2532308308,6883419,2254831860,5883614,1672493563],"text":["year: 1991<br />value:    2793314<br />animal_group: Bovine","year: 1991<br />value:  962014466<br />animal_group: Bovine","year: 1992<br />value:    3015705<br />animal_group: Bovine","year: 1992<br />value: 1255189729<br />animal_group: Bovine","year: 1993<br />value:    1811170<br />animal_group: Bovine","year: 1993<br />value: 1356525894<br />animal_group: Bovine","year: 1994<br />value:    1529956<br />animal_group: Bovine","year: 1994<br />value: 1170619985<br />animal_group: Bovine","year: 1995<br />value:    1149456<br />animal_group: Bovine","year: 1995<br />value: 1437217920<br />animal_group: Bovine","year: 1996<br />value:    1195446<br />animal_group: Bovine","year: 1996<br />value: 1139848024<br />animal_group: Bovine","year: 1997<br />value:    1036057<br />animal_group: Bovine","year: 1997<br />value: 1141137552<br />animal_group: Bovine","year: 1998<br />value:    3311331<br />animal_group: Bovine","year: 1998<br />value: 1159558330<br />animal_group: Bovine","year: 1999<br />value:    6628683<br />animal_group: Bovine","year: 1999<br />value: 1015175846<br />animal_group: Bovine","year: 2000<br />value:    6334868<br />animal_group: Bovine","year: 2000<br />value: 1166046920<br />animal_group: Bovine","year: 2001<br />value:    9270247<br />animal_group: Bovine","year: 2001<br />value: 1472936283<br />animal_group: Bovine","year: 2002<br />value:    7887136<br />animal_group: Bovine","year: 2002<br />value: 1455226879<br />animal_group: Bovine","year: 2003<br />value:    4695717<br />animal_group: Bovine","year: 2003<br />value:  869436476<br />animal_group: Bovine","year: 2004<br />value:     120374<br />animal_group: Bovine","year: 2004<br />value:  546191445<br />animal_group: Bovine","year: 2005<br />value:      18080<br />animal_group: Bovine","year: 2005<br />value: 1048902020<br />animal_group: Bovine","year: 2006<br />value: 1570060114<br />animal_group: Bovine","year: 2007<br />value:    2481294<br />animal_group: Bovine","year: 2007<br />value: 1907664140<br />animal_group: Bovine","year: 2008<br />value:   26145722<br />animal_group: Bovine","year: 2008<br />value: 1775116794<br />animal_group: Bovine","year: 2009<br />value:    4035931<br />animal_group: Bovine","year: 2009<br />value: 1328876075<br />animal_group: Bovine","year: 2010<br />value:    4831908<br />animal_group: Bovine","year: 2010<br />value: 1608425642<br />animal_group: Bovine","year: 2011<br />value:    5138440<br />animal_group: Bovine","year: 2011<br />value: 1481746412<br />animal_group: Bovine","year: 2012<br />value:    2958406<br />animal_group: Bovine","year: 2012<br />value: 1809310758<br />animal_group: Bovine","year: 2013<br />value:    5266625<br />animal_group: Bovine","year: 2013<br />value: 1814564550<br />animal_group: Bovine","year: 2014<br />value:    9975519<br />animal_group: Bovine","year: 2014<br />value: 2532308308<br />animal_group: Bovine","year: 2015<br />value:    6883419<br />animal_group: Bovine","year: 2015<br />value: 2254831860<br />animal_group: Bovine","year: 2016<br />value:    5883614<br />animal_group: Bovine","year: 2016<br />value: 1672493563<br />animal_group: Bovine"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(109,98,74,1)","opacity":0.80000000000000004,"size":11.338582677165356,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(109,98,74,1)"}},"hoveron":"points","name":"Bovine","legendgroup":"Bovine","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1991,1991,1992,1992,1993,1993,1994,1994,1995,1995,1996,1996,1997,1997,1998,1998,1999,1999,2000,2000,2001,2001,2002,2002,2003,2003,2004,2004,2005,2005,2006,2006,2007,2007,2008,2008,2009,2009,2010,2010,2011,2011,2012,2012,2013,2013,2014,2014,2015,2015,2016,2016],"y":[7587128,124425,8107021,178960,8237437,537756,9619025,1189279,10314382,5746708,11842132,4525589,13605379,3919475,12869142,2410385,12423033,2921267,14511423,3905514,17520759,5292572,18025163,5802426,15559060,5769539,18771864,7719142,11208650,11378551,13884712,8669529,17389167,6935598,15722073,7021459,15420479,7137197,12226756,8280058,15466111,7767498,24705913,8228842,21006587,8090166,26750864,6641746,22483795,8135347,30799364,9210334],"text":["year: 1991<br />value:    7587128<br />animal_group: Poultry","year: 1991<br />value:     124425<br />animal_group: Poultry","year: 1992<br />value:    8107021<br />animal_group: Poultry","year: 1992<br />value:     178960<br />animal_group: Poultry","year: 1993<br />value:    8237437<br />animal_group: Poultry","year: 1993<br />value:     537756<br />animal_group: Poultry","year: 1994<br />value:    9619025<br />animal_group: Poultry","year: 1994<br />value:    1189279<br />animal_group: Poultry","year: 1995<br />value:   10314382<br />animal_group: Poultry","year: 1995<br />value:    5746708<br />animal_group: Poultry","year: 1996<br />value:   11842132<br />animal_group: Poultry","year: 1996<br />value:    4525589<br />animal_group: Poultry","year: 1997<br />value:   13605379<br />animal_group: Poultry","year: 1997<br />value:    3919475<br />animal_group: Poultry","year: 1998<br />value:   12869142<br />animal_group: Poultry","year: 1998<br />value:    2410385<br />animal_group: Poultry","year: 1999<br />value:   12423033<br />animal_group: Poultry","year: 1999<br />value:    2921267<br />animal_group: Poultry","year: 2000<br />value:   14511423<br />animal_group: Poultry","year: 2000<br />value:    3905514<br />animal_group: Poultry","year: 2001<br />value:   17520759<br />animal_group: Poultry","year: 2001<br />value:    5292572<br />animal_group: Poultry","year: 2002<br />value:   18025163<br />animal_group: Poultry","year: 2002<br />value:    5802426<br />animal_group: Poultry","year: 2003<br />value:   15559060<br />animal_group: Poultry","year: 2003<br />value:    5769539<br />animal_group: Poultry","year: 2004<br />value:   18771864<br />animal_group: Poultry","year: 2004<br />value:    7719142<br />animal_group: Poultry","year: 2005<br />value:   11208650<br />animal_group: Poultry","year: 2005<br />value:   11378551<br />animal_group: Poultry","year: 2006<br />value:   13884712<br />animal_group: Poultry","year: 2006<br />value:    8669529<br />animal_group: Poultry","year: 2007<br />value:   17389167<br />animal_group: Poultry","year: 2007<br />value:    6935598<br />animal_group: Poultry","year: 2008<br />value:   15722073<br />animal_group: Poultry","year: 2008<br />value:    7021459<br />animal_group: Poultry","year: 2009<br />value:   15420479<br />animal_group: Poultry","year: 2009<br />value:    7137197<br />animal_group: Poultry","year: 2010<br />value:   12226756<br />animal_group: Poultry","year: 2010<br />value:    8280058<br />animal_group: Poultry","year: 2011<br />value:   15466111<br />animal_group: Poultry","year: 2011<br />value:    7767498<br />animal_group: Poultry","year: 2012<br />value:   24705913<br />animal_group: Poultry","year: 2012<br />value:    8228842<br />animal_group: Poultry","year: 2013<br />value:   21006587<br />animal_group: Poultry","year: 2013<br />value:    8090166<br />animal_group: Poultry","year: 2014<br />value:   26750864<br />animal_group: Poultry","year: 2014<br />value:    6641746<br />animal_group: Poultry","year: 2015<br />value:   22483795<br />animal_group: Poultry","year: 2015<br />value:    8135347<br />animal_group: Poultry","year: 2016<br />value:   30799364<br />animal_group: Poultry","year: 2016<br />value:    9210334<br />animal_group: Poultry"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(200,200,200,1)","opacity":0.80000000000000004,"size":11.338582677165356,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(200,200,200,1)"}},"hoveron":"points","name":"Poultry","legendgroup":"Poultry","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1991,1991,1991,1992,1992,1992,1993,1993,1993,1994,1994,1994,1995,1995,1995,1996,1996,1996,1997,1997,1997,1998,1998,1998,1999,1999,1999,2000,2000,2000,2001,2001,2001,2002,2002,2002,2003,2003,2003,2004,2004,2004,2005,2005,2005,2006,2006,2006,2007,2007,2007,2008,2008,2008,2009,2009,2009,2010,2010,2010,2011,2011,2011,2012,2012,2012,2013,2013,2013,2014,2014,2014,2015,2015,2015,2016,2016,2016],"y":[10370856,100435701,1256532,8736225,56827101,1913058,11485380,67650884,1918182,14540277,59388497,1255631,20127354,120494872,1487771,23645399,258150531,381466,33296460,284802887,1316457,38993368,249786593,70005,51199786,175099882,181524,72425024,226002358,1209924,103167772,249754084,5080141,108501066,199204699,1354785,149543905,249000640,1991074,189215303,350705794,981807,239956521,365389779,998806,247882550,339087442,836993,267592276,393371000,831174,225895349,262592617,929373,158281228,141193308,404331,205381752,162276581,297519,196373144,170534929,264629,188695928,144571141,340734,182189047,153054449,535034,240474287,195187898,77000,189822636,166913189,91019,185028112,129828640,107185],"text":["year: 1991<br />value:   10370856<br />animal_group: Swine","year: 1991<br />value:  100435701<br />animal_group: Swine","year: 1991<br />value:    1256532<br />animal_group: Swine","year: 1992<br />value:    8736225<br />animal_group: Swine","year: 1992<br />value:   56827101<br />animal_group: Swine","year: 1992<br />value:    1913058<br />animal_group: Swine","year: 1993<br />value:   11485380<br />animal_group: Swine","year: 1993<br />value:   67650884<br />animal_group: Swine","year: 1993<br />value:    1918182<br />animal_group: Swine","year: 1994<br />value:   14540277<br />animal_group: Swine","year: 1994<br />value:   59388497<br />animal_group: Swine","year: 1994<br />value:    1255631<br />animal_group: Swine","year: 1995<br />value:   20127354<br />animal_group: Swine","year: 1995<br />value:  120494872<br />animal_group: Swine","year: 1995<br />value:    1487771<br />animal_group: Swine","year: 1996<br />value:   23645399<br />animal_group: Swine","year: 1996<br />value:  258150531<br />animal_group: Swine","year: 1996<br />value:     381466<br />animal_group: Swine","year: 1997<br />value:   33296460<br />animal_group: Swine","year: 1997<br />value:  284802887<br />animal_group: Swine","year: 1997<br />value:    1316457<br />animal_group: Swine","year: 1998<br />value:   38993368<br />animal_group: Swine","year: 1998<br />value:  249786593<br />animal_group: Swine","year: 1998<br />value:      70005<br />animal_group: Swine","year: 1999<br />value:   51199786<br />animal_group: Swine","year: 1999<br />value:  175099882<br />animal_group: Swine","year: 1999<br />value:     181524<br />animal_group: Swine","year: 2000<br />value:   72425024<br />animal_group: Swine","year: 2000<br />value:  226002358<br />animal_group: Swine","year: 2000<br />value:    1209924<br />animal_group: Swine","year: 2001<br />value:  103167772<br />animal_group: Swine","year: 2001<br />value:  249754084<br />animal_group: Swine","year: 2001<br />value:    5080141<br />animal_group: Swine","year: 2002<br />value:  108501066<br />animal_group: Swine","year: 2002<br />value:  199204699<br />animal_group: Swine","year: 2002<br />value:    1354785<br />animal_group: Swine","year: 2003<br />value:  149543905<br />animal_group: Swine","year: 2003<br />value:  249000640<br />animal_group: Swine","year: 2003<br />value:    1991074<br />animal_group: Swine","year: 2004<br />value:  189215303<br />animal_group: Swine","year: 2004<br />value:  350705794<br />animal_group: Swine","year: 2004<br />value:     981807<br />animal_group: Swine","year: 2005<br />value:  239956521<br />animal_group: Swine","year: 2005<br />value:  365389779<br />animal_group: Swine","year: 2005<br />value:     998806<br />animal_group: Swine","year: 2006<br />value:  247882550<br />animal_group: Swine","year: 2006<br />value:  339087442<br />animal_group: Swine","year: 2006<br />value:     836993<br />animal_group: Swine","year: 2007<br />value:  267592276<br />animal_group: Swine","year: 2007<br />value:  393371000<br />animal_group: Swine","year: 2007<br />value:     831174<br />animal_group: Swine","year: 2008<br />value:  225895349<br />animal_group: Swine","year: 2008<br />value:  262592617<br />animal_group: Swine","year: 2008<br />value:     929373<br />animal_group: Swine","year: 2009<br />value:  158281228<br />animal_group: Swine","year: 2009<br />value:  141193308<br />animal_group: Swine","year: 2009<br />value:     404331<br />animal_group: Swine","year: 2010<br />value:  205381752<br />animal_group: Swine","year: 2010<br />value:  162276581<br />animal_group: Swine","year: 2010<br />value:     297519<br />animal_group: Swine","year: 2011<br />value:  196373144<br />animal_group: Swine","year: 2011<br />value:  170534929<br />animal_group: Swine","year: 2011<br />value:     264629<br />animal_group: Swine","year: 2012<br />value:  188695928<br />animal_group: Swine","year: 2012<br />value:  144571141<br />animal_group: Swine","year: 2012<br />value:     340734<br />animal_group: Swine","year: 2013<br />value:  182189047<br />animal_group: Swine","year: 2013<br />value:  153054449<br />animal_group: Swine","year: 2013<br />value:     535034<br />animal_group: Swine","year: 2014<br />value:  240474287<br />animal_group: Swine","year: 2014<br />value:  195187898<br />animal_group: Swine","year: 2014<br />value:      77000<br />animal_group: Swine","year: 2015<br />value:  189822636<br />animal_group: Swine","year: 2015<br />value:  166913189<br />animal_group: Swine","year: 2015<br />value:      91019<br />animal_group: Swine","year: 2016<br />value:  185028112<br />animal_group: Swine","year: 2016<br />value:  129828640<br />animal_group: Swine","year: 2016<br />value:     107185<br />animal_group: Swine"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(202,196,160,1)","opacity":0.80000000000000004,"size":11.338582677165356,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(202,196,160,1)"}},"hoveron":"points","name":"Swine","legendgroup":"Swine","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2008,2008],"y":[-126596431.40000001,2658922819.4000001],"text":"xintercept: 2008","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(255,0,0,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2008],"y":[2405692892.5999999],"text":"2008 Crisis","hovertext":"x: 2008<br />y: 2405692893","textfont":{"size":15.118110236220474,"color":"rgba(255,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":52.928185969281863,"r":9.2984640929846396,"b":51.141552511415526,"l":129.24865089248655},"font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279},"title":{"text":"<b> USA Live Animal Imports by Animal Group <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":23.910336239103366},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1989.75,2017.25],"tickmode":"array","ticktext":["1990","1992","1994","1996","1998","2000","2002","2004","2006","2008","2010","2012","2014","2016"],"tickvals":[1990,1992,1994,1996,1998,2000,2002,2004,2006,2008,2010,2012,2014,2016],"categoryorder":"array","categoryarray":["1990","1992","1994","1996","1998","2000","2002","2004","2006","2008","2010","2012","2014","2016"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.6492320464923198,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":14.877542548775427},"tickangle":45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.8453149175440583,"zeroline":false,"anchor":"y","title":"Year","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-126596431.40000001,2658922819.4000001],"tickmode":"array","ticktext":["0","500,000,000","1,000,000,000","1,500,000,000","2,000,000,000","2,500,000,000"],"tickvals":[0,500000000,1000000000.0000001,1500000000,2000000000,2500000000],"categoryorder":"array","categoryarray":["0","500,000,000","1,000,000,000","1,500,000,000","2,000,000,000","2,500,000,000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.6492320464923198,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":14.87754254877543},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.8453149175440583,"zeroline":false,"anchor":"x","title":"Trade Value (USD)","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.877542548775427},"title":{"text":"Animal Group","font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1ef02a253a8a":{"x":{},"y":{},"colour":{},"type":"scatter"},"1ef07280415a":{"xintercept":{}},"1ef01a093f4":{"x":{},"y":{}}},"cur_data":"1ef02a253a8a","visdat":{"1ef02a253a8a":["function (y) ","x"],"1ef07280415a":["function (y) ","x"],"1ef01a093f4":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>This scatterplot shows that when the 2008 crisis struck, the trade value went doen for all live animals, but leveled out in the end. We see that bovine is pretty scattered, so you cannot really see a relation. But for swine, the trade value went down, but didn’t rise up again. Poultry however, stays about the same, as it is hidden behind the lower level of swine.</p>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1"></h3>
+<p>Let’s see what else was impacted by the 2008 financial crisis</p>
+</section>
+<section id="plot-2-interactive-heatmap" class="level3">
+<h3 class="anchored" data-anchor-id="plot-2-interactive-heatmap">Plot 2 : Interactive Heatmap</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-73f7781918d71cea98fd" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-73f7781918d71cea98fd">{"x":{"data":[{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016],"y":[864392471,897527013,641971658,791925483,518768126,671161914,754873834,749218720,859502933,796793970,814890071,1038251364,1189530232,1019524929,944407211,757360691,784223079],"text":["year: 2000<br />total_trade:  864392471<br />flow_category: Export_Live Animals","year: 2001<br />total_trade:  897527013<br />flow_category: Export_Live Animals","year: 2002<br />total_trade:  641971658<br />flow_category: Export_Live Animals","year: 2003<br />total_trade:  791925483<br />flow_category: Export_Live Animals","year: 2004<br />total_trade:  518768126<br />flow_category: Export_Live Animals","year: 2005<br />total_trade:  671161914<br />flow_category: Export_Live Animals","year: 2006<br />total_trade:  754873834<br />flow_category: Export_Live Animals","year: 2007<br />total_trade:  749218720<br />flow_category: Export_Live Animals","year: 2008<br />total_trade:  859502933<br />flow_category: Export_Live Animals","year: 2009<br />total_trade:  796793970<br />flow_category: Export_Live Animals","year: 2010<br />total_trade:  814890071<br />flow_category: Export_Live Animals","year: 2011<br />total_trade: 1038251364<br />flow_category: Export_Live Animals","year: 2012<br />total_trade: 1189530232<br />flow_category: Export_Live Animals","year: 2013<br />total_trade: 1019524929<br />flow_category: Export_Live Animals","year: 2014<br />total_trade:  944407211<br />flow_category: Export_Live Animals","year: 2015<br />total_trade:  757360691<br />flow_category: Export_Live Animals","year: 2016<br />total_trade:  784223079<br />flow_category: Export_Live Animals"],"type":"scatter","mode":"lines+markers","line":{"width":4.5354330708661417,"color":"rgba(162,142,109,1)","dash":"solid"},"hoveron":"points","name":"Export_Live Animals","legendgroup":"Export_Live Animals","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","marker":{"autocolorscale":false,"color":"rgba(162,142,109,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(162,142,109,1)"}},"frame":null},{"x":[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016],"y":[1976151246,2282615771,2159666598,1654356395,1471175189,2121688067,2642135192,3139835623,2794268392,2032352483,2384380748,2345538849,2642887670,2672100430,3572881876,3323896980,2826080850],"text":["year: 2000<br />total_trade: 1976151246<br />flow_category: Import_Live Animals","year: 2001<br />total_trade: 2282615771<br />flow_category: Import_Live Animals","year: 2002<br />total_trade: 2159666598<br />flow_category: Import_Live Animals","year: 2003<br />total_trade: 1654356395<br />flow_category: Import_Live Animals","year: 2004<br />total_trade: 1471175189<br />flow_category: Import_Live Animals","year: 2005<br />total_trade: 2121688067<br />flow_category: Import_Live Animals","year: 2006<br />total_trade: 2642135192<br />flow_category: Import_Live Animals","year: 2007<br />total_trade: 3139835623<br />flow_category: Import_Live Animals","year: 2008<br />total_trade: 2794268392<br />flow_category: Import_Live Animals","year: 2009<br />total_trade: 2032352483<br />flow_category: Import_Live Animals","year: 2010<br />total_trade: 2384380748<br />flow_category: Import_Live Animals","year: 2011<br />total_trade: 2345538849<br />flow_category: Import_Live Animals","year: 2012<br />total_trade: 2642887670<br />flow_category: Import_Live Animals","year: 2013<br />total_trade: 2672100430<br />flow_category: Import_Live Animals","year: 2014<br />total_trade: 3572881876<br />flow_category: Import_Live Animals","year: 2015<br />total_trade: 3323896980<br />flow_category: Import_Live Animals","year: 2016<br />total_trade: 2826080850<br />flow_category: Import_Live Animals"],"type":"scatter","mode":"lines+markers","line":{"width":4.5354330708661417,"color":"rgba(109,98,74,1)","dash":"solid"},"hoveron":"points","name":"Import_Live Animals","legendgroup":"Import_Live Animals","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","marker":{"autocolorscale":false,"color":"rgba(109,98,74,1)","opacity":1,"size":7.559055118110237,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(109,98,74,1)"}},"frame":null},{"x":[2008,2008],"y":[366062438.5,3725587563.5],"text":"xintercept: 2008","type":"scatter","mode":"lines","line":{"width":3.7795275590551185,"color":"rgba(255,0,0,1)","dash":"dash"},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[2008],"y":[3394237782.1999998],"text":"2008 Crisis","hovertext":"x: 2008<br />y: 3394237782","textfont":{"size":15.118110236220474,"color":"rgba(255,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":52.928185969281863,"r":9.2984640929846396,"b":51.141552511415526,"l":129.24865089248655},"font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279},"title":{"text":"<b> USA Trade in Key Food Categories (2000-2016) <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":23.910336239103366},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[1999.2,2016.8],"tickmode":"array","ticktext":["2000","2002","2004","2006","2008","2010","2012","2014","2016"],"tickvals":[2000,2002,2004,2006,2008,2010,2012,2014,2016],"categoryorder":"array","categoryarray":["2000","2002","2004","2006","2008","2010","2012","2014","2016"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.6492320464923198,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":14.877542548775427},"tickangle":45,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.8453149175440583,"zeroline":false,"anchor":"y","title":"Year","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[366062438.5,3725587563.5],"tickmode":"array","ticktext":["1,000,000,000","2,000,000,000","3,000,000,000"],"tickvals":[1000000000,2000000000,3000000000],"categoryorder":"array","categoryarray":["1,000,000,000","2,000,000,000","3,000,000,000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":4.6492320464923198,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":14.87754254877543},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.8453149175440583,"zeroline":false,"anchor":"x","title":"Trade Value (USD)","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","layer":"below","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":14.877542548775427},"title":{"text":"Flow & Category","font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1ef037e69c9":{"x":{},"y":{},"colour":{},"type":"scatter"},"1ef060257e89":{"x":{},"y":{},"colour":{}},"1ef06767475e":{"xintercept":{}},"1ef063b47635":{"x":{},"y":{}}},"cur_data":"1ef037e69c9","visdat":{"1ef037e69c9":["function (y) ","x"],"1ef060257e89":["function (y) ","x"],"1ef06767475e":["function (y) ","x"],"1ef063b47635":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>For this plot of US trade in food categories, we can see that the trade value of importing live animals goes down by a very large amount after the 2008 crisis, but it starts to rise after that. Exporting, unlike importing, goes down by very little, then rises to its peak in 2012, then goes back down over the next few years.</p>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2"></h3>
+</section>
+<section id="plot-3-3d-bar-plot" class="level3">
+<h3 class="anchored" data-anchor-id="plot-3-3d-bar-plot">Plot 3 : 3D Bar Plot</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3c0306f8ff5e05fbd87f" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-3c0306f8ff5e05fbd87f">{"x":{"visdat":{"1ef069ec67ff":["function () ","plotlyVisDat"]},"cur_data":"1ef069ec67ff","attrs":{"1ef069ec67ff":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998,2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998],"z":[0,0,0,0,1908.92573554,1908.92573554,1908.92573554,1908.92573554],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.1":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998,2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998],"z":[0,0,0,0,562.40768956099998,562.40768956099998,562.40768956099998,562.40768956099998],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.2":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175],"z":[0,0,0,0,3682.5774416959998,3682.5774416959998,3682.5774416959998,3682.5774416959998],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.3":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175],"z":[0,0,0,0,2667.282964302,2667.282964302,2667.282964302,2667.282964302],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.4":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998,3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998],"z":[0,0,0,0,1047.247042173,1047.247042173,1047.247042173,1047.247042173],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.5":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998,3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998],"z":[0,0,0,0,721.49881900000003,721.49881900000003,721.49881900000003,721.49881900000003],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.6":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998,4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998],"z":[0,0,0,0,1091.652367183,1091.652367183,1091.652367183,1091.652367183],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.7":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998,4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998],"z":[0,0,0,0,402.86828280700001,402.86828280700001,402.86828280700001,402.86828280700001],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.8":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[1.825,1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998],"z":[0,0,0,0,1711.6681415539999,1711.6681415539999,1711.6681415539999,1711.6681415539999],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.9":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[1.825,1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998],"z":[0,0,0,0,1129.6911173190001,1129.6911173190001,1129.6911173190001,1129.6911173190001],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"showscale":false,"inherit":true},"1ef069ec67ff.10":{"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"mesh3d","x":[1.5,1.5,1.5,1.5],"y":[0.5,5.5,5.5,0.5],"z":[0,0,4050.8351858656001,4050.8351858656001],"i":0,"j":1,"k":2,"facecolor":"rgba(0,0,0,0.3)","showscale":false,"name":"2008 Crisis Marker","inherit":true}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"scene":{"xaxis":{"title":"Period","tickvals":[1,2],"ticktext":["Pre-2008","Post-2008"]},"yaxis":{"title":"Country","tickvals":[1,2,3,4,5],"ticktext":["EU-28","Japan","China","Germany","India"]},"zaxis":{"title":"Trade (Billion USD)"},"camera":{"eye":{"x":1.8,"y":1.8,"z":1.2}}},"title":"3D Bar Chart: U.S. Mineral Fuels & Oils Imports Before and After 2008 Crisis","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998,2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998],"z":[0,0,0,0,1908.92573554,1908.92573554,1908.92573554,1908.92573554],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998,2.8250000000000002,2.8250000000000002,3.1749999999999998,3.1749999999999998],"z":[0,0,0,0,562.40768956099998,562.40768956099998,562.40768956099998,562.40768956099998],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175],"z":[0,0,0,0,3682.5774416959998,3682.5774416959998,3682.5774416959998,3682.5774416959998],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175],"z":[0,0,0,0,2667.282964302,2667.282964302,2667.282964302,2667.282964302],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998,3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998],"z":[0,0,0,0,1047.247042173,1047.247042173,1047.247042173,1047.247042173],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998,3.8250000000000002,3.8250000000000002,4.1749999999999998,4.1749999999999998],"z":[0,0,0,0,721.49881900000003,721.49881900000003,721.49881900000003,721.49881900000003],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998,4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998],"z":[0,0,0,0,1091.652367183,1091.652367183,1091.652367183,1091.652367183],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998,4.8250000000000002,4.8250000000000002,5.1749999999999998,5.1749999999999998],"z":[0,0,0,0,402.86828280700001,402.86828280700001,402.86828280700001,402.86828280700001],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998,1.825],"y":[1.825,1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998],"z":[0,0,0,0,1711.6681415539999,1711.6681415539999,1711.6681415539999,1711.6681415539999],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)","rgb(109, 98, 74)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[0.82499999999999996,1.175,1.175,0.82499999999999996,0.82499999999999996,1.175,1.175,0.82499999999999996],"y":[1.825,1.825,2.1749999999999998,2.1749999999999998,1.825,1.825,2.1749999999999998,2.1749999999999998],"z":[0,0,0,0,1129.6911173190001,1129.6911173190001,1129.6911173190001,1129.6911173190001],"i":[0,0,0,1,1,2,2,3,3,4,4,5],"j":[1,2,3,2,3,3,4,4,5,5,6,6],"k":[2,3,4,3,4,4,5,5,6,6,7,7],"facecolor":["rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)","rgb(202, 196, 160)"],"opacity":0.90000000000000002,"frame":null},{"colorbar":{"title":"","ticklen":2},"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"type":"mesh3d","x":[1.5,1.5,1.5,1.5],"y":[0.5,5.5,5.5,0.5],"z":[0,0,4050.8351858656001,4050.8351858656001],"i":[0],"j":[1],"k":[2],"facecolor":["rgba(0,0,0,0.3)"],"name":"2008 Crisis Marker","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>In this 3D bar plot, we can directly see trade value of minerals pre and post the 2008 crisis. We can see that the 2008 crisis left India with about double the amount of money, while Germany with the least change, now have had less money made from fuels an oils than other countries. China has the greatest percent change, with it almost tripling in money from trading. China overtook Japan after the crisis, but Japan still rose. The European Union, is still the highest before and after the crisis, rising to a whopping 3.5 trillion.</p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3"></h3>
+
+
+<!-- -->
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/brunchmaster-ap\.github\.io\/Global-Commodity-Trade\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Plots"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: cosmo</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">    css: styles.css</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> false</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  echo: false</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>This report presents a visual analysis of global commodity trade, focusing on how trade value (trade_usd) changes over time and varies across countries and commodities. By using clear and informative plots, the goal is to uncover patterns and trends that may not be immediately apparent from raw data alone. The visualizations aim to provide insight into the structure and dynamics of international trade over the observed period.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>#</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(primer.data)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>gct <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"commodity_trade_statistics_data.csv"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot 1 : Animated Line Plot</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>gct <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"commodity_trade_statistics_data.csv"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Hex color palette for plotly</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>animal_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bovine"</span> <span class="ot">=</span> <span class="st">"#6d624a"</span>,   <span class="co"># rgb(109, 98, 74)</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Swine"</span> <span class="ot">=</span> <span class="st">"#cac4a0"</span>,    <span class="co"># rgb(202, 196, 160)</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Poultry"</span> <span class="ot">=</span> <span class="st">"#c8c8c8"</span>   <span class="co"># rgb(200, 200, 200)</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>df_animals <span class="ot">&lt;-</span> gct <span class="sc">%&gt;%</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    country_or_area <span class="sc">==</span> <span class="st">"USA"</span>,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    flow <span class="sc">==</span> <span class="st">"Import"</span>,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    category <span class="sc">==</span> <span class="st">"01_live_animals"</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, commodity) <span class="sc">%&gt;%</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">sum</span>(trade_usd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">animal_group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(<span class="fu">tolower</span>(commodity), <span class="st">"bovine|cattle|cow"</span>) <span class="sc">~</span> <span class="st">"Bovine"</span>,</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(<span class="fu">tolower</span>(commodity), <span class="st">"swine|pig|hog"</span>) <span class="sc">~</span> <span class="st">"Swine"</span>,</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(<span class="fu">tolower</span>(commodity), <span class="st">"poultry|chicken|bird"</span>) <span class="sc">~</span> <span class="st">"Poultry"</span>,</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(animal_group <span class="sc">!=</span> <span class="st">"Other"</span>)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Base ggplot without lines, just dots + vertical line at 2008</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_animals, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> value, <span class="at">color =</span> animal_group)) <span class="sc">+</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2008</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2008</span>, <span class="at">y =</span> <span class="fu">max</span>(df_animals<span class="sc">$</span>value)<span class="sc">*</span><span class="fl">0.95</span>, <span class="at">label =</span> <span class="st">"2008 Crisis"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> animal_colors) <span class="sc">+</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"USA Live Animal Imports by Animal Group"</span>,</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Trade Value (USD)"</span>,</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Animal Group"</span></span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">comma_format</span>(), <span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">8</span>))</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to interactive plotly</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p) <span class="sc">%&gt;%</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Year"</span>, <span class="at">tickangle =</span> <span class="dv">45</span>),</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Trade Value (USD)"</span>)</span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>This scatterplot shows that when the 2008 crisis struck, the trade value went doen for all live animals, but leveled out in the end. We see that bovine is pretty scattered, so you cannot really see a relation. But for swine, the trade value went down, but didn't rise up again. Poultry however, stays about the same, as it is hidden behind the lower level of swine. </span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>###</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>Let's see what else was impacted by the 2008 financial crisis</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot 2 : Interactive Heatmap</span></span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="co"># Read data</span></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>gct <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"commodity_trade_statistics_data.csv"</span>)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter relevant data</span></span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>df_trade <span class="ot">&lt;-</span> gct <span class="sc">%&gt;%</span></span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>    country_or_area <span class="sc">==</span> <span class="st">"USA"</span>,</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>    flow <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Import"</span>, <span class="st">"Export"</span>),</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>    category <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"01_live_animals"</span>, <span class="st">"02_meat_and_edible_offal"</span>, <span class="st">"03_fish_and_seafood"</span>),</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>    year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2016</span></span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, flow, category) <span class="sc">%&gt;%</span></span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total_trade =</span> <span class="fu">sum</span>(trade_usd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>    <span class="at">category =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>      category <span class="sc">==</span> <span class="st">"01_live_animals"</span> <span class="sc">~</span> <span class="st">"Live Animals"</span>,</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>      category <span class="sc">==</span> <span class="st">"02_meat_and_edible_offal"</span> <span class="sc">~</span> <span class="st">"Meat &amp; Edible Offal"</span>,</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>      category <span class="sc">==</span> <span class="st">"03_fish_and_seafood"</span> <span class="sc">~</span> <span class="st">"Fish &amp; Seafood"</span>,</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> category</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Define colors for each flow-category combination</span></span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Import_Live Animals"</span> <span class="ot">=</span> <span class="st">"#6d624a"</span>,</span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Export_Live Animals"</span> <span class="ot">=</span> <span class="st">"#a28e6d"</span>,</span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Import_Meat &amp; Edible Offal"</span> <span class="ot">=</span> <span class="st">"#cac4a0"</span>,</span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Export_Meat &amp; Edible Offal"</span> <span class="ot">=</span> <span class="st">"#e0dbbe"</span>,</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Import_Fish &amp; Seafood"</span> <span class="ot">=</span> <span class="st">"#c8c8c8"</span>,</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Export_Fish &amp; Seafood"</span> <span class="ot">=</span> <span class="st">"#e0e0e0"</span></span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>df_trade <span class="ot">&lt;-</span> df_trade <span class="sc">%&gt;%</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">flow_category =</span> <span class="fu">paste</span>(flow, category, <span class="at">sep =</span> <span class="st">"_"</span>))</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_trade, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> total_trade, <span class="at">color =</span> flow_category)) <span class="sc">+</span></span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">size =</span> <span class="fl">1.2</span>) <span class="sc">+</span></span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> colors) <span class="sc">+</span></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">2008</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2008</span>, <span class="at">y =</span> <span class="fu">max</span>(df_trade<span class="sc">$</span>total_trade) <span class="sc">*</span> <span class="fl">0.95</span>, <span class="at">label =</span> <span class="st">"2008 Crisis"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">comma_format</span>()) <span class="sc">+</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> scales<span class="sc">::</span><span class="fu">pretty_breaks</span>(<span class="at">n =</span> <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"USA Trade in Key Food Categories (2000-2016)"</span>,</span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Trade Value (USD)"</span>,</span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Flow &amp; Category"</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"bottom"</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(p) <span class="sc">%&gt;%</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Year"</span>, <span class="at">tickangle =</span> <span class="dv">45</span>),</span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Trade Value (USD)"</span>)</span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-179"><a href="#cb1-179" aria-hidden="true" tabindex="-1"></a>For this plot of US trade in food categories, we can see that the trade value of importing live animals goes down by a very large amount after the 2008 crisis, but it starts to rise after that. Exporting, unlike importing, goes down by very little, then rises to its peak in 2012, then goes back down over the next few years.</span>
+<span id="cb1-180"><a href="#cb1-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-181"><a href="#cb1-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-182"><a href="#cb1-182" aria-hidden="true" tabindex="-1"></a>###</span>
+<span id="cb1-183"><a href="#cb1-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-184"><a href="#cb1-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-185"><a href="#cb1-185" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plot 3 : 3D Bar Plot</span></span>
+<span id="cb1-186"><a href="#cb1-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-189"><a href="#cb1-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-190"><a href="#cb1-190" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-191"><a href="#cb1-191" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-192"><a href="#cb1-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-193"><a href="#cb1-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter &amp; summarize data</span></span>
+<span id="cb1-194"><a href="#cb1-194" aria-hidden="true" tabindex="-1"></a>df_p3 <span class="ot">&lt;-</span> gct <span class="sc">%&gt;%</span></span>
+<span id="cb1-195"><a href="#cb1-195" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(category <span class="sc">==</span> <span class="st">"27_mineral_fuels_oils_distillation_products_etc"</span>,</span>
+<span id="cb1-196"><a href="#cb1-196" aria-hidden="true" tabindex="-1"></a>         flow <span class="sc">==</span> <span class="st">"Import"</span>,</span>
+<span id="cb1-197"><a href="#cb1-197" aria-hidden="true" tabindex="-1"></a>         year <span class="sc">&gt;=</span> <span class="dv">2000</span>, year <span class="sc">&lt;=</span> <span class="dv">2016</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-198"><a href="#cb1-198" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">period =</span> <span class="fu">ifelse</span>(year <span class="sc">&lt;=</span> <span class="dv">2008</span>, <span class="st">"Pre-2008"</span>, <span class="st">"Post-2008"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-199"><a href="#cb1-199" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_or_area, period) <span class="sc">%&gt;%</span></span>
+<span id="cb1-200"><a href="#cb1-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_trade =</span> <span class="fu">sum</span>(trade_usd, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">"drop"</span>)</span>
+<span id="cb1-201"><a href="#cb1-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-202"><a href="#cb1-202" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick top 5 countries by total trade (summed over both periods)</span></span>
+<span id="cb1-203"><a href="#cb1-203" aria-hidden="true" tabindex="-1"></a>top_countries <span class="ot">&lt;-</span> df_p3 <span class="sc">%&gt;%</span></span>
+<span id="cb1-204"><a href="#cb1-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country_or_area) <span class="sc">%&gt;%</span></span>
+<span id="cb1-205"><a href="#cb1-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">overall_trade =</span> <span class="fu">sum</span>(total_trade), <span class="at">.groups =</span> <span class="st">"drop"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-206"><a href="#cb1-206" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(overall_trade)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-207"><a href="#cb1-207" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-208"><a href="#cb1-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(country_or_area)</span>
+<span id="cb1-209"><a href="#cb1-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-210"><a href="#cb1-210" aria-hidden="true" tabindex="-1"></a>df_p3 <span class="ot">&lt;-</span> df_p3 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(country_or_area <span class="sc">%in%</span> top_countries)</span>
+<span id="cb1-211"><a href="#cb1-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-212"><a href="#cb1-212" aria-hidden="true" tabindex="-1"></a>make_bar_mesh <span class="ot">&lt;-</span> <span class="cf">function</span>(x_center, y_center, height, <span class="at">width=</span><span class="fl">0.4</span>, <span class="at">depth=</span><span class="fl">0.4</span>, color) {</span>
+<span id="cb1-213"><a href="#cb1-213" aria-hidden="true" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">c</span>(x_center <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">+</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">+</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb1-214"><a href="#cb1-214" aria-hidden="true" tabindex="-1"></a>         x_center <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">+</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">+</span> width<span class="sc">/</span><span class="dv">2</span>, x_center <span class="sc">-</span> width<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb1-215"><a href="#cb1-215" aria-hidden="true" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="fu">c</span>(y_center <span class="sc">-</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">-</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">+</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">+</span> depth<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb1-216"><a href="#cb1-216" aria-hidden="true" tabindex="-1"></a>         y_center <span class="sc">-</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">-</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">+</span> depth<span class="sc">/</span><span class="dv">2</span>, y_center <span class="sc">+</span> depth<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb1-217"><a href="#cb1-217" aria-hidden="true" tabindex="-1"></a>  z <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, height, height, height, height)</span>
+<span id="cb1-218"><a href="#cb1-218" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>  i <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb1-220"><a href="#cb1-220" aria-hidden="true" tabindex="-1"></a>  j <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>)</span>
+<span id="cb1-221"><a href="#cb1-221" aria-hidden="true" tabindex="-1"></a>  k <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">7</span>)</span>
+<span id="cb1-222"><a href="#cb1-222" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-223"><a href="#cb1-223" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">z =</span> z, <span class="at">i =</span> i, <span class="at">j =</span> j, <span class="at">k =</span> k, <span class="at">color =</span> color)</span>
+<span id="cb1-224"><a href="#cb1-224" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-225"><a href="#cb1-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-226"><a href="#cb1-226" aria-hidden="true" tabindex="-1"></a><span class="co"># Map periods to numeric x axis</span></span>
+<span id="cb1-227"><a href="#cb1-227" aria-hidden="true" tabindex="-1"></a>period_map <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pre-2008"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"Post-2008"</span> <span class="ot">=</span> <span class="dv">2</span>)</span>
+<span id="cb1-228"><a href="#cb1-228" aria-hidden="true" tabindex="-1"></a>df_p3 <span class="ot">&lt;-</span> df_p3 <span class="sc">%&gt;%</span></span>
+<span id="cb1-229"><a href="#cb1-229" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_num =</span> period_map[period],</span>
+<span id="cb1-230"><a href="#cb1-230" aria-hidden="true" tabindex="-1"></a>         <span class="at">y_num =</span> <span class="fu">as.numeric</span>(<span class="fu">factor</span>(country_or_area, <span class="at">levels =</span> top_countries)),</span>
+<span id="cb1-231"><a href="#cb1-231" aria-hidden="true" tabindex="-1"></a>         <span class="at">trade_billion =</span> total_trade <span class="sc">/</span> <span class="fl">1e9</span>)</span>
+<span id="cb1-232"><a href="#cb1-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-233"><a href="#cb1-233" aria-hidden="true" tabindex="-1"></a><span class="co"># Color scheme</span></span>
+<span id="cb1-234"><a href="#cb1-234" aria-hidden="true" tabindex="-1"></a>colors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Pre-2008"</span> <span class="ot">=</span> <span class="st">"rgb(202, 196, 160)"</span>,  <span class="co"># beige</span></span>
+<span id="cb1-235"><a href="#cb1-235" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Post-2008"</span> <span class="ot">=</span> <span class="st">"rgb(109, 98, 74)"</span>)   <span class="co"># dark brown</span></span>
+<span id="cb1-236"><a href="#cb1-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-237"><a href="#cb1-237" aria-hidden="true" tabindex="-1"></a><span class="co"># Create bar meshes</span></span>
+<span id="cb1-238"><a href="#cb1-238" aria-hidden="true" tabindex="-1"></a>bars <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df_p3), <span class="cf">function</span>(i) {</span>
+<span id="cb1-239"><a href="#cb1-239" aria-hidden="true" tabindex="-1"></a>  row <span class="ot">&lt;-</span> df_p3[i,]</span>
+<span id="cb1-240"><a href="#cb1-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_bar_mesh</span>(<span class="at">x_center =</span> row<span class="sc">$</span>x_num,</span>
+<span id="cb1-241"><a href="#cb1-241" aria-hidden="true" tabindex="-1"></a>                <span class="at">y_center =</span> row<span class="sc">$</span>y_num,</span>
+<span id="cb1-242"><a href="#cb1-242" aria-hidden="true" tabindex="-1"></a>                <span class="at">height =</span> row<span class="sc">$</span>trade_billion,</span>
+<span id="cb1-243"><a href="#cb1-243" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.35</span>,</span>
+<span id="cb1-244"><a href="#cb1-244" aria-hidden="true" tabindex="-1"></a>                <span class="at">depth =</span> <span class="fl">0.35</span>,</span>
+<span id="cb1-245"><a href="#cb1-245" aria-hidden="true" tabindex="-1"></a>                <span class="at">color =</span> colors[row<span class="sc">$</span>period])</span>
+<span id="cb1-246"><a href="#cb1-246" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-247"><a href="#cb1-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-248"><a href="#cb1-248" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize plot</span></span>
+<span id="cb1-249"><a href="#cb1-249" aria-hidden="true" tabindex="-1"></a>fig <span class="ot">&lt;-</span> <span class="fu">plot_ly</span>()</span>
+<span id="cb1-250"><a href="#cb1-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-251"><a href="#cb1-251" aria-hidden="true" tabindex="-1"></a><span class="co"># Add bar traces</span></span>
+<span id="cb1-252"><a href="#cb1-252" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (bar <span class="cf">in</span> bars) {</span>
+<span id="cb1-253"><a href="#cb1-253" aria-hidden="true" tabindex="-1"></a>  fig <span class="ot">&lt;-</span> fig <span class="sc">%&gt;%</span></span>
+<span id="cb1-254"><a href="#cb1-254" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_trace</span>(<span class="at">type =</span> <span class="st">'mesh3d'</span>,</span>
+<span id="cb1-255"><a href="#cb1-255" aria-hidden="true" tabindex="-1"></a>              <span class="at">x =</span> bar<span class="sc">$</span>x, <span class="at">y =</span> bar<span class="sc">$</span>y, <span class="at">z =</span> bar<span class="sc">$</span>z,</span>
+<span id="cb1-256"><a href="#cb1-256" aria-hidden="true" tabindex="-1"></a>              <span class="at">i =</span> bar<span class="sc">$</span>i, <span class="at">j =</span> bar<span class="sc">$</span>j, <span class="at">k =</span> bar<span class="sc">$</span>k,</span>
+<span id="cb1-257"><a href="#cb1-257" aria-hidden="true" tabindex="-1"></a>              <span class="at">facecolor =</span> <span class="fu">rep</span>(bar<span class="sc">$</span>color, <span class="fu">length</span>(bar<span class="sc">$</span>i)),</span>
+<span id="cb1-258"><a href="#cb1-258" aria-hidden="true" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="fl">0.9</span>,</span>
+<span id="cb1-259"><a href="#cb1-259" aria-hidden="true" tabindex="-1"></a>              <span class="at">showscale =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-260"><a href="#cb1-260" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-261"><a href="#cb1-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-262"><a href="#cb1-262" aria-hidden="true" tabindex="-1"></a><span class="co"># Black separator at x = 1.5 for 2008 crisis</span></span>
+<span id="cb1-263"><a href="#cb1-263" aria-hidden="true" tabindex="-1"></a>fig <span class="ot">&lt;-</span> fig <span class="sc">%&gt;%</span></span>
+<span id="cb1-264"><a href="#cb1-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_trace</span>(<span class="at">type =</span> <span class="st">'mesh3d'</span>,</span>
+<span id="cb1-265"><a href="#cb1-265" aria-hidden="true" tabindex="-1"></a>            <span class="at">x =</span> <span class="fu">c</span>(<span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>, <span class="fl">1.5</span>),</span>
+<span id="cb1-266"><a href="#cb1-266" aria-hidden="true" tabindex="-1"></a>            <span class="at">y =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fu">max</span>(df_p3<span class="sc">$</span>y_num) <span class="sc">+</span> <span class="fl">0.5</span>, <span class="fu">max</span>(df_p3<span class="sc">$</span>y_num) <span class="sc">+</span> <span class="fl">0.5</span>, <span class="fl">0.5</span>),</span>
+<span id="cb1-267"><a href="#cb1-267" aria-hidden="true" tabindex="-1"></a>            <span class="at">z =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">max</span>(df_p3<span class="sc">$</span>trade_billion) <span class="sc">*</span> <span class="fl">1.1</span>, <span class="fu">max</span>(df_p3<span class="sc">$</span>trade_billion) <span class="sc">*</span> <span class="fl">1.1</span>),</span>
+<span id="cb1-268"><a href="#cb1-268" aria-hidden="true" tabindex="-1"></a>            <span class="at">i =</span> <span class="fu">c</span>(<span class="dv">0</span>),</span>
+<span id="cb1-269"><a href="#cb1-269" aria-hidden="true" tabindex="-1"></a>            <span class="at">j =</span> <span class="fu">c</span>(<span class="dv">1</span>),</span>
+<span id="cb1-270"><a href="#cb1-270" aria-hidden="true" tabindex="-1"></a>            <span class="at">k =</span> <span class="fu">c</span>(<span class="dv">2</span>),</span>
+<span id="cb1-271"><a href="#cb1-271" aria-hidden="true" tabindex="-1"></a>            <span class="at">facecolor =</span> <span class="fu">rep</span>(<span class="st">"rgba(0,0,0,0.3)"</span>, <span class="dv">1</span>),</span>
+<span id="cb1-272"><a href="#cb1-272" aria-hidden="true" tabindex="-1"></a>            <span class="at">showscale =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb1-273"><a href="#cb1-273" aria-hidden="true" tabindex="-1"></a>            <span class="at">name =</span> <span class="st">"2008 Crisis Marker"</span>)</span>
+<span id="cb1-274"><a href="#cb1-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-275"><a href="#cb1-275" aria-hidden="true" tabindex="-1"></a><span class="co"># Layout</span></span>
+<span id="cb1-276"><a href="#cb1-276" aria-hidden="true" tabindex="-1"></a>fig <span class="ot">&lt;-</span> fig <span class="sc">%&gt;%</span></span>
+<span id="cb1-277"><a href="#cb1-277" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">scene =</span> <span class="fu">list</span>(</span>
+<span id="cb1-278"><a href="#cb1-278" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Period"</span>, <span class="at">tickvals =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">ticktext =</span> <span class="fu">c</span>(<span class="st">"Pre-2008"</span>, <span class="st">"Post-2008"</span>)),</span>
+<span id="cb1-279"><a href="#cb1-279" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Country"</span>, <span class="at">tickvals =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">ticktext =</span> top_countries),</span>
+<span id="cb1-280"><a href="#cb1-280" aria-hidden="true" tabindex="-1"></a>    <span class="at">zaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Trade (Billion USD)"</span>),</span>
+<span id="cb1-281"><a href="#cb1-281" aria-hidden="true" tabindex="-1"></a>    <span class="at">camera =</span> <span class="fu">list</span>(<span class="at">eye =</span> <span class="fu">list</span>(<span class="at">x =</span> <span class="fl">1.8</span>, <span class="at">y =</span> <span class="fl">1.8</span>, <span class="at">z =</span> <span class="fl">1.2</span>))</span>
+<span id="cb1-282"><a href="#cb1-282" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-283"><a href="#cb1-283" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"3D Bar Chart: U.S. Mineral Fuels &amp; Oils Imports Before and After 2008 Crisis"</span>)</span>
+<span id="cb1-284"><a href="#cb1-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-285"><a href="#cb1-285" aria-hidden="true" tabindex="-1"></a>fig</span>
+<span id="cb1-286"><a href="#cb1-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-287"><a href="#cb1-287" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-288"><a href="#cb1-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-289"><a href="#cb1-289" aria-hidden="true" tabindex="-1"></a>In this 3D bar plot, we can directly see trade value of minerals pre and post the 2008 crisis. We can see that the 2008 crisis left India with about double the amount of money, while Germany with the least change, now have had less money made from fuels an oils than other countries. China has the greatest percent change, with it almost tripling in money from trading. China overtook Japan after the crisis, but Japan still rose. The European Union, is still the highest before and after the crisis, rising to a whopping 3.5 trillion.</span>
+<span id="cb1-290"><a href="#cb1-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-291"><a href="#cb1-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-292"><a href="#cb1-292" aria-hidden="true" tabindex="-1"></a>###</span>
+</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
