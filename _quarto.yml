@@ -16,6 +16,8 @@ website:
         text: Sources
       - href: about.qmd
         text: About
+      - href: map.qmd
+        text: Map
      
       
      
