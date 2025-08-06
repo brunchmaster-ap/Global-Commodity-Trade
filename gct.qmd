@@ -148,8 +148,26 @@ The Population Table offers a side-by-side summary of U.S. live animal imports b
 
 
 ```{r}
-model <- feols(trade_usd ~ year | country_or_area + commodity, data = gct)
+library(dplyr)
 
+# Check unique country names that start with "USA"
+unique_countries <- unique(gct$country_or_area)
+print(grep("^USA$", unique_countries, value = TRUE))  # Should print "USA" if exists
+
+# Filter dataset
+us_live <- gct %>%
+  filter(
+    country_or_area == "USA",
+    commodity == "01_live_animals",
+    flow == "Import"
+  ) %>%
+  filter(!is.na(trade_usd)) %>%
+  mutate(crisis = ifelse(year >= 2008, 1, 0))
+
+print(nrow(us_live))  # Check if there are rows after filtering
+
+# Run linear regression
+model <- lm(trade_usd ~ year + crisis, data = us_live)
 summary(model)
 ```
 
