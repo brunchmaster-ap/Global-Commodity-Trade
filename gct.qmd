@@ -165,25 +165,18 @@ summary(model)
 ```
 
 ```{r}
-library(ggplot2)
-
-# Plot trade value over time with crisis periods colored
 ggplot(us_all_imports, aes(x = year, y = trade_usd)) +
   geom_point(alpha = 0.3, color = "sienna4") +
-  geom_smooth(method = "lm", formula = y ~ x + crisis, color = "saddlebrown", se = TRUE) +
+  geom_smooth(method = "lm", formula = y ~ x, color = "saddlebrown", se = TRUE) +
   scale_y_continuous(labels = scales::dollar_format(scale = 1e-9, suffix = "B")) +
   labs(
     title = "U.S. Import Trade Value Over Time",
-    subtitle = "Linear model with pre/post 2008 financial crisis effect",
+    subtitle = "Linear trend over years",
     x = "Year",
     y = "Trade Value (Billions USD)",
     caption = "Data: Global Commodity Trade Statistics"
   ) +
-  theme_minimal(base_family = "Segoe UI") +
-  theme(
-    plot.title = element_text(face = "bold", size = 16),
-    plot.subtitle = element_text(size = 12)
-  )
+  theme_minimal(base_family = "Segoe UI")
 
 ```
 
