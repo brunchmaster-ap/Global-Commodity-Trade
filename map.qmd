@@ -1,6 +1,14 @@
 ---
 title: "Globe"
-format: html
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+jupyter: false
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 ```{r}
