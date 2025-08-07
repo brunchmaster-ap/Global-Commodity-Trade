@@ -12,12 +12,13 @@ website:
         text: Models
       - href: plots.qmd
         text: Plots
+      - href: map.qmd
+        text: Map
       - href: sources.qmd
         text: Sources
       - href: about.qmd
         text: About
-      - href: map.qmd
-        text: Map
+      
      
       
      

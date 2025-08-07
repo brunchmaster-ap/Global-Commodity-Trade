@@ -32,25 +32,34 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(countrycode)
 
-# Load your data
-gct <- read_csv("commodity_trade_statistics_data.csv")
+# Pre-process data
+gct_filtered <- gct %>%
+  filter(flow == "Import", !is.na(trade_usd)) %>%
+  mutate(period = if_else(year <= 2008, "Pre-2008", "Post-2008"))
 
-# Aggregate total trade per country
-gct_map <- gct %>%
-  group_by(country_or_area) %>%
-  summarize(total_trade = sum(trade_usd, na.rm = TRUE)) %>%
+# Aggregate by country and period
+gct_map <- gct_filtered %>%
+  group_by(country_or_area, period) %>%
+  summarize(total_trade = sum(trade_usd, na.rm = TRUE), .groups = "drop") %>%
   mutate(
     trade_label = case_when(
+      total_trade >= 1e12 ~ paste0("$", round(total_trade / 1e12, 1), "T"),
       total_trade >= 1e9 ~ paste0("$", round(total_trade / 1e9, 1), "B"),
       total_trade >= 1e6 ~ paste0("$", round(total_trade / 1e6, 1), "M"),
-      TRUE ~ paste0("$", round(total_trade, 0))
+      total_trade > 0 ~ paste0("Small value ($", round(total_trade, 0), ")"),
+      total_trade == 0 ~ "No trade reported",
+      TRUE ~ NA_character_
     ),
     iso_a3 = countrycode(country_or_area, "country.name", "iso3c")
   )
 
-# Merge with world map
-world <- ne_countries(scale = "medium", returnclass = "sf") %>%
-  left_join(gct_map, by = "iso_a3") %>%
+# Prepare world map
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Join for both periods
+world_data <- world %>%
+  select(iso_a3, name) %>%
+  right_join(gct_map, by = "iso_a3") %>%
   mutate(
     z = ifelse(is.na(total_trade), -1, total_trade),
     hover_text = ifelse(is.na(total_trade),
@@ -58,7 +67,7 @@ world <- ne_countries(scale = "medium", returnclass = "sf") %>%
                         paste(name, "<br>", trade_label))
   )
 
-# Custom color scale (exact gray for NA)
+# Define color scale
 color_scale <- list(
   list(0, "rgb(200,200,200)"),
   list(0.000001, "#f5f0e1"),
@@ -67,16 +76,19 @@ color_scale <- list(
   list(1, "#5c4422")
 )
 
-# Plot with subtitle annotation
-plot_ly(world) %>%
+# Separate frames for pre/post
+frames <- split(world_data, world_data$period)
+
+# Create initial plot (Pre-2008)
+p <- plot_ly() %>%
   add_trace(
     type = "choropleth",
-    locations = ~iso_a3,
-    z = ~z,
-    text = ~hover_text,
+    locations = frames[["Pre-2008"]]$iso_a3,
+    z = frames[["Pre-2008"]]$z,
+    text = frames[["Pre-2008"]]$hover_text,
     colorscale = color_scale,
     zmin = -1,
-    zmax = max(world$z, na.rm = TRUE),
+    zmax = max(world_data$z, na.rm = TRUE),
     hoverinfo = "text",
     marker = list(line = list(width = 0)),
     showscale = TRUE,
@@ -92,18 +104,42 @@ plot_ly(world) %>%
       countrycolor = "gray20",
       bgcolor = "white",
       showframe = FALSE,
-      showcoastlines = FALSE,
-      resolution = 50,
-      dragmode = "zoom",
-      lonaxis = list(showgrid = FALSE),
-      lataxis = list(showgrid = FALSE)
+      showcoastlines = FALSE
     ),
-    margin = list(l = 0, r = 0, t = 0, b = 0),
+    updatemenus = list(
+      list(
+        type = "buttons",
+        direction = "right",
+        x = 0.5,
+        y = 1.05,
+        showactive = TRUE,
+        buttons = list(
+          list(
+            label = "Pre-2008",
+            method = "restyle",
+            args = list(list(
+              locations = list(frames[["Pre-2008"]]$iso_a3),
+              z = list(frames[["Pre-2008"]]$z),
+              text = list(frames[["Pre-2008"]]$hover_text)
+            ))
+          ),
+          list(
+            label = "Post-2008",
+            method = "restyle",
+            args = list(list(
+              locations = list(frames[["Post-2008"]]$iso_a3),
+              z = list(frames[["Post-2008"]]$z),
+              text = list(frames[["Post-2008"]]$hover_text)
+            ))
+          )
+        )
+      )
+    ),
     annotations = list(
       list(
-        text = "Note: Gray countries have missing trade data",
+        text = "Note: Yellow countries have missing trade data",
         x = 0.5,
-        y = -0.15,
+        y = -0.1,
         showarrow = FALSE,
         xref = "paper",
         yref = "paper",
@@ -111,6 +147,8 @@ plot_ly(world) %>%
       )
     )
   )
+
+p
 
 ```
 

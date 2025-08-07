@@ -16,4 +16,56 @@ Understanding this shift can reveal how economic shocks reshape trade in essenti
 
 We analyzed U.S. live animal imports from 2000 to 2016 using the Global Commodity Trade Statistics dataset. Post-2008 trends show shifts in import volume and value, suggesting the crisis may have triggered lasting changes in trade behavior.
 
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(primer.data)
+library(knitr)
+library(kableExtra)
+library(broom)
+library(gt)
+library(stringr)
+library(fixest)
 
+gct <- read_csv("commodity_trade_statistics_data.csv")
+```
+
+```{r}
+library(tidyverse)
+library(scales)
+
+us_live_all <- gct %>%
+  filter(
+    country_or_area == "USA",
+    category == "01_live_animals",
+    flow == "Import",
+    year >= 2000, year <= 2016,
+    !is.na(trade_usd)
+  ) %>%
+  group_by(year) %>%
+  summarize(total_trade = sum(trade_usd, na.rm = TRUE), .groups = "drop") %>%
+  mutate(year_factor = as.factor(year))
+
+ggplot(us_live_all, aes(x = year_factor, y = total_trade / 1e9, group = 1)) +
+  geom_area(fill = "#CAC4A0", alpha = 0.8) +                   # light tan fill
+  geom_line(color = "#6D624A", linewidth = 1.2) +              # dark brown outline line
+  coord_polar(start = -pi/16) +
+  scale_y_continuous(labels = scales::dollar_format(prefix = "$", suffix = "B")) +
+  labs(
+    title = "U.S. Live Animal Imports (2000–2016)",
+    x = NULL,
+    y = "Trade Value (Billions USD)"
+  ) +
+  theme_minimal(base_family = "Segoe UI") +
+  theme(
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    panel.grid.major.y = element_line(color = "gray80"),
+    panel.grid.minor = element_blank(),
+    legend.position = "none",
+    plot.title = element_text(face = "bold", size = 16)
+  )
+
+```
+
+The plot reveals fluctuations in U.S. live animal imports over the years, indicating periods of increase and decline in trade value between 2000 and 2016.

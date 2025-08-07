@@ -30,7 +30,7 @@ gct <- read_csv("commodity_trade_statistics_data.csv")
 ```
 
 
-### Plot 1 : Animated Line Plot
+### Plot 1 : Interactive Scatterplot
 
 
 ```{r}
@@ -93,14 +93,14 @@ ggplotly(p) %>%
   )
 ```
 
-This scatterplot shows that when the 2008 crisis struck, the trade value went doen for all live animals, but leveled out in the end. We see that bovine is pretty scattered, so you cannot really see a relation. But for swine, the trade value went down, but didn't rise up again. Poultry however, stays about the same, as it is hidden behind the lower level of swine. 
+This scatterplot shows that when the 2008 crisis struck, the trade value went down for all live animals, but leveled out in the end. We see that bovine is pretty scattered, so you cannot really see a relation. But for swine, the trade value went down, but didn't rise up again. Poultry however, stays about the same, as it is hidden behind the lower level of swine. 
 
 
 ###
 
 Let's see what else was impacted by the 2008 financial crisis
 
-### Plot 2 : Interactive Heatmap
+### Plot 2 : Interactive Line Plot
 
 ```{r}
 library(tidyverse)
