@@ -148,47 +148,43 @@ The Population Table offers a side-by-side summary of U.S. live animal imports b
 
 
 ```{r}
-library(dplyr)
+library(tidyverse)
 
-# Check unique country names that start with "USA"
-unique_countries <- unique(gct$country_or_area)
-print(grep("^USA$", unique_countries, value = TRUE))  # Should print "USA" if exists
-
-# Filter dataset
-us_live <- gct %>%
+us_all_imports <- gct %>%
   filter(
     country_or_area == "USA",
-    commodity == "01_live_animals",
     flow == "Import"
   ) %>%
-  filter(!is.na(trade_usd)) %>%
-  mutate(crisis = ifelse(year >= 2008, 1, 0))
+  mutate(
+    crisis = if_else(year > 2008, 1, 0)
+  ) %>%
+  drop_na(trade_usd, year, crisis)
 
-print(nrow(us_live))  # Check if there are rows after filtering
-
-# Run linear regression
-model <- lm(trade_usd ~ year + crisis, data = us_live)
+model <- lm(trade_usd ~ year + crisis, data = us_all_imports)
 summary(model)
 ```
 
 ```{r}
-ggplot(us_imports, aes(x = year, y = trade_usd)) +
-  geom_point(alpha = 0.6, color = "#5a3d1b") +  # Dark brown dots
-  geom_smooth(method = "lm", color = "#c2b190", fill = "#e4d8c3") +  # Tan trend line
+library(ggplot2)
+
+# Plot trade value over time with crisis periods colored
+ggplot(us_all_imports, aes(x = year, y = trade_usd)) +
+  geom_point(alpha = 0.3, color = "sienna4") +
+  geom_smooth(method = "lm", formula = y ~ x + crisis, color = "saddlebrown", se = TRUE) +
+  scale_y_continuous(labels = scales::dollar_format(scale = 1e-9, suffix = "B")) +
   labs(
-    title = "U.S. Live Animal Imports Over Time",
-    subtitle = "Linear regression shows trend and impact of 2008 crisis",
+    title = "U.S. Import Trade Value Over Time",
+    subtitle = "Linear model with pre/post 2008 financial crisis effect",
     x = "Year",
-    y = "Import Value (USD)"
+    y = "Trade Value (Billions USD)",
+    caption = "Data: Global Commodity Trade Statistics"
   ) +
-  theme_minimal(base_family = "Helvetica") +
+  theme_minimal(base_family = "Segoe UI") +
   theme(
-    plot.background = element_rect(fill = "#f5f0e6", color = NA),  # Light tan
-    panel.grid.major = element_line(color = "#d8c9b4"),
-    text = element_text(color = "#3e2c1c"),
-    plot.title = element_text(size = 18, face = "bold"),
-    plot.subtitle = element_text(size = 13)
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(size = 12)
   )
+
 ```
 
 Trade value (trade_usd) is regressed on year, controlling for country_or_area and commodity fixed effects. The year coefficient shows the average yearly change in trade value, holding country and commodity constant.
